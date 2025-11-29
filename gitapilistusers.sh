@@ -8,10 +8,15 @@
 # Purpose : This Script will help you to check the list of users for the particular repo without goining to GitHub API and it wioll help you to understand from CLI by using script.
 ############################
 
-#helper function
+#helper function to check command line argumements
 
-
-helper ()
+	function helper {
+		expected_cmd_args=2
+		if [ $# -ne $expected_cmd_args ];then
+			echo "Usage: $0 <repo_owner> <repo_name>"
+			exit 1
+		fi
+	}
 
 # GitHub API URL 
   API_URL="https://api.github.com"
@@ -30,7 +35,7 @@ helper ()
 # Function to make GET request TO THE GitHub API
 	function github_api_get {
 		local endpoint="$1"
-		local url="${API_URL}/{endpoint}"
+		local url="${API_URL}/${endpoint}"
 
 
 
@@ -55,18 +60,13 @@ helper ()
 
 	}
 
-	function helper{
-		expected_cmd_args=2
-		if [ $# -ne $expected-cmd_args];then
-		echo "please execute the script with required cmd args"
-		echo "asd"
-	}
+
 
 	#main Script
 	
-
+	helper "$@"
 	echo "Listing users with read access to ${REPO_OWNER}/${REPO_NAME}..."
-	
+	list_users_with_read_access
 
 
 	##Next upcoming days or any other this thsi script will have more function including helper and monitoring integration
