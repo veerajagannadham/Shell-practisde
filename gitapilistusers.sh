@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 
 ####################
@@ -10,16 +10,16 @@
 
 
 # GitHub API URL 
-  API_URL = "https://api.github.com"
+  API_URL="https://api.github.com"
 
 # GitHub username and personal access token
-  USERNAME=$username
-  TOKEN=$token
+  USERNAME="$username"
+  TOKEN="$token"
 
 
 # User and Repository information
-  REPO_OWNER=$1
-  REPO_NAME=$2
+  REPO_OWNER="$1"
+  REPO_NAME="$2"
 
 
 
@@ -31,12 +31,12 @@
 
 
 		#send a GET request to the GitHub API with Authetication
-		curl -s -u "${USER}:${TOKEN}""$url"
+		curl -s -u "${USERNAME}:${TOKEN}" "$url"
 	}
 
 #Function to list users with read access to the repository
  	function list_users_with_read_access {
-		local endpoint="repo/${REPO_OWNER}/${REPO_NAME}/collaborators"
+		local endpoint="repos/${REPO_OWNER}/${REPO_NAME}/collaborators"
 
 		#fetch the list of collaborators on the repository
 		collaborators="$(github_api_get "$endpoint" | jq -r '.[] | select(.permission.pull == true) | .login')"
@@ -54,9 +54,9 @@
 
 	#main Script
 	
-8
+
 	echo "Listing users with read access to ${REPO_OWNER}/${REPO_NAME}..."
-	list_users_with_read-access
+	
 
 
 	##Next upcoming days or any other this thsi script will have more function including helper and monitoring integration
